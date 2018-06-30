@@ -1,15 +1,13 @@
-%{
-#include <stdio.h>
-
-int yylex(void);
-void yyerror(const char *); 
-%}
 /* Ndom numbers, 1-143 (i.e., 1-355 base-6), integers.
  * References:
  * - http://www.sf.airnet.ne.jp/ts/language/number/ndom.html
  * - https://en.wikipedia.org/wiki/Ndom_language
  * - http://www.ioling.org/problems/2007/i4/
  */
+
+/*%define api.pure*/
+%lex-param   { yyscan_t scanner_data }
+%parse-param { yyscan_t scanner_data }
 
 /* The grammar is unambiguous, but requires LR(2) to parse properly.
  * It can be rewritten so that LALR(1) would suffice, but the grammar will
@@ -23,7 +21,21 @@ void yyerror(const char *);
  */
 %expect 1
 
-/*%output "parser.c"*/
+%output "parser.c"
+%defines "parser.h"
+
+%code requires {
+#include <stdio.h>
+
+// ???
+#ifndef YY_TYPEDEF_YY_SCANNER_T
+#define YY_TYPEDEF_YY_SCANNER_T
+typedef void* yyscan_t;
+#endif
+
+int yylex();
+int yyerror();
+}
 
 %token SAS THEF ITHIN THONITH MEREGH MER TONDOR NIF
 %token ABO AN
@@ -72,11 +84,12 @@ place_two:
 %%
 #include <ctype.h>
 
+/*
 void yyerror(const char *s)
 {
   printf("Error: %s\n", s);
 }
-
+*/
 /*
 void ndom_parse(const char *str)
 {
@@ -86,10 +99,3 @@ void ndom_parse(const char *str)
   yyparse();
 }
 */
-
-int main(void)
-{
-  // ndom_parse("nif thef");
-  yyparse();
-  return 0;
-}

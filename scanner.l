@@ -1,9 +1,11 @@
+%option outfile="scanner.c" header-file="scanner.h"
+%option reentrant
+%option noinput nounput noyywrap
+%option case-insensitive
+
 %{
 #include "parser.h"
 %}
-
-%option noinput nounput noyywrap
-%option case-insensitive
 
 %%
 sas     { return SAS; }
