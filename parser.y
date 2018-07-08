@@ -1,17 +1,17 @@
-/* Ndom numbers, 1-143 (i.e., 1-355 base-6), integers.
+/* Ndom numbers
+ * Range: 1-143 (i.e., 1-355 base-6), integers.
  * References:
  * - http://www.sf.airnet.ne.jp/ts/language/number/ndom.html
  * - https://en.wikipedia.org/wiki/Ndom_language
  * - http://www.ioling.org/problems/2007/i4/
  */
-
-/*%define api.pure*/
-%lex-param   { yyscan_t scanner_data }
-%parse-param { yyscan_t scanner_data }
+%output "parser.c"
+%defines "parser.h"
+%define api.pure
 
 /* The grammar is unambiguous, but requires LR(2) to parse properly.
  * It can be rewritten so that LALR(1) would suffice, but the grammar will
- * be less human readable. Choose to use GLR parser instead.
+ * be less human readable.
  */
 %glr-parser
 /* The expected shift-reduce conflict happens here:
@@ -21,35 +21,25 @@
  */
 %expect 1
 
-%output "parser.c"
-%defines "parser.h"
+%lex-param   { yyscan_t scanner_data }
+%parse-param { yyscan_t scanner_data }
+%parse-param { int *p_value }
 
-%code requires {
-#include <stdio.h>
-
-// ???
+%{
 #ifndef YY_TYPEDEF_YY_SCANNER_T
 #define YY_TYPEDEF_YY_SCANNER_T
 typedef void* yyscan_t;
 #endif
-
-int yylex();
-int yyerror();
-}
+int yylex(int *, yyscan_t);
+void yyerror(yyscan_t, int *, ...);
+%}
 
 %token SAS THEF ITHIN THONITH MEREGH MER TONDOR NIF
 %token ABO AN
-%token EOL
 
 %%
 input:
-    input line
-  | /* empty */
-  ;
-
-line:
-    EOL
-  | number EOL  { printf("%d\n", $1); }
+    number { *p_value = $1; }
   ;
 
 number:
@@ -84,18 +74,35 @@ place_two:
 %%
 #include <ctype.h>
 
-/*
-void yyerror(const char *s)
+#include "scanner.h"
+#include "ndom.h"
+
+void yyerror(yyscan_t scanner, int *p_value, ...)
 {
-  printf("Error: %s\n", s);
+  (void) scanner;
+  (void) p_value;
 }
-*/
-/*
-void ndom_parse(const char *str)
+
+int ndom_parse(const char *str)
 {
-  YY_BUFFER_STATE bp;
-  bp = yy_scan_string(str);
-  yy_switch_to_buffer(bp);
-  yyparse();
+  yyscan_t scanner_info;
+  if (yylex_init(&scanner_info)) {
+    yylex_destroy(scanner_info);
+    return -1;
+  }
+
+  YY_BUFFER_STATE buffer_state = yy_scan_string(str, scanner_info);
+  yy_switch_to_buffer(buffer_state, scanner_info);
+
+  int value;
+  if (yyparse(scanner_info, &value)) {
+    yy_delete_buffer(buffer_state, scanner_info);
+    yylex_destroy(scanner_info);
+    return -1;
+  }
+
+  yy_delete_buffer(buffer_state, scanner_info);
+  yylex_destroy(scanner_info);
+  
+  return value;
 }
-*/

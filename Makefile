@@ -17,7 +17,7 @@ ndom.o: ndom.c scanner.h parser.h
 
 scanner.o: scanner.c parser.h
 
-parser.o: parser.c
+parser.o: parser.c scanner.h
 
 .c.o:
 	$(CC) -c $(CFLAGS) $< -o $@

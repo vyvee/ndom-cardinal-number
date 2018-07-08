@@ -1,5 +1,5 @@
 %option outfile="scanner.c" header-file="scanner.h"
-%option reentrant
+%option reentrant bison-bridge
 %option noinput nounput noyywrap
 %option case-insensitive
 
@@ -8,17 +8,16 @@
 %}
 
 %%
-sas     { return SAS; }
-thef    { return THEF; }
-ithin   { return ITHIN; }
-thonith { return THONITH; }
-meregh  { return MEREGH; }
-mer     { return MER; }
-tondor  { return TONDOR; }
-nif     { return NIF; }
-abo     { return ABO; }
-an      { return AN; }
-[\n]    { return EOL; }
-[ \t]+  {}   
-.       { return yytext[0]; }
+sas             { return SAS; }
+thef            { return THEF; }
+ithin           { return ITHIN; }
+thonith         { return THONITH; }
+meregh          { return MEREGH; }
+mer             { return MER; }
+tondor          { return TONDOR; }
+nif             { return NIF; }
+abo             { return ABO; }
+an              { return AN; }
+[ \t\n\v\f\r]+  {}   
+.               { return yytext[0]; }
 %%
