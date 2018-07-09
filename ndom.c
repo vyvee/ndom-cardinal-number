@@ -1,6 +1,9 @@
+#include <string.h>
+
 #include "ndom.h"
 
-#include <string.h>
+#define COPY_STRING(d, p, s) \
+  { char *_s = s; while (*_s) *((d)+(p)++) = *_s++; }
 
 char *int_to_ndom(int value, char *str)
 {
@@ -11,75 +14,56 @@ char *int_to_ndom(int value, char *str)
   int pos = 0;
 
   if (value >= 6*6*3) {
-    memcpy(str+pos, "nif ithin", 9);
-    pos += 9;
+    COPY_STRING(str, pos, "nif ithin");
     value -= 6*6*3;
   }
   else if (value >= 6*6*2) {
-    memcpy(str+pos, "nif thef", 8);
-    pos += 8;
+    COPY_STRING(str, pos, "nif thef");
     value -= 6*6*2;
   }
   else if (value >= 6*6) {
-    memcpy(str+pos, "nif", 3);
-    pos += 3;
+    COPY_STRING(str, pos, "nif");
     value -= 6*6;
   }
 
   if (value >= 6*3) {
-    if (pos) {
-      memcpy(str+pos, " abo ", 5);
-      pos += 5;
-    }
-    memcpy(str+pos, "tondor", 6);
-    pos += 6;
+    if (pos)
+      COPY_STRING(str, pos, " abo ");
+    COPY_STRING(str, pos, "tondor");
     value -= 6*3;
   }
 
   if (value >= 6*2) {
-    if (pos) {
-      memcpy(str+pos, " abo ", 5);
-      pos += 5;
-    }
-    memcpy(str+pos, "mer an thef", 11);
-    pos += 11;
+    if (pos)
+      COPY_STRING(str, pos, " abo ");
+    COPY_STRING(str, pos, "mer an thef");
     value -= 6*2;
   }
   else if (value >= 6) {
-    if (pos) {
-      memcpy(str+pos, " abo ", 5);
-      pos += 5;
-    }
-    memcpy(str+pos, "mer", 3);
-    pos += 3;
+    if (pos)
+      COPY_STRING(str, pos, " abo ");
+    COPY_STRING(str, pos, "mer");
     value -= 6;
   }
 
   if (value > 0) {
-    if (pos) {
-      memcpy(str+pos, " abo ", 5);
-      pos += 5;
-    }
+    if (pos)
+      COPY_STRING(str, pos, " abo ");
     switch (value) {
     case 1:
-      memcpy(str+pos, "sas", 3);
-      pos += 3;
+      COPY_STRING(str, pos, "sas");
       break;
     case 2:
-      memcpy(str+pos, "thef", 4);
-      pos += 4;
+      COPY_STRING(str, pos, "thef");
       break;
     case 3:
-      memcpy(str+pos, "ithin", 5);
-      pos += 5;
+      COPY_STRING(str, pos, "ithin");
       break;
     case 4:
-      memcpy(str+pos, "thonith", 7);
-      pos += 7;
+      COPY_STRING(str, pos, "thonith");
       break;
     case 5:
-      memcpy(str+pos, "meregh", 6);
-      pos += 6;
+      COPY_STRING(str, pos, "meregh");
       break;
     }
   }
