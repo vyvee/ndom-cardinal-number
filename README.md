@@ -2,6 +2,8 @@
 
 A parser for Ndom cardinal numbers.
 
+The Ndom language is spoken by about 1,200 people on Yos Sudarso Island in Papua province, Indonesia. It has numbers in senary (base 6).
+
 The code makes use of:
 - Reentrant scanner by using Flex
 - Reentrant GLR parser by using Bison
