@@ -1,18 +1,14 @@
 # Ndom Cardinal Numbers
 
-A parser for Ndom cardinal numbers.
+Convert Ndom cardinal numbers to Arabic numerals, and vice versa.
 
 The Ndom language is spoken by about 1,200 people on Yos Sudarso Island in Papua province, Indonesia. It has numbers in senary (base 6).
 
 The code makes use of:
-- Reentrant scanner by using Flex
-- Reentrant GLR parser by using Bison
+- Reentrant scanner with Flex
+- Reentrant GLR parser with Bison
 
-For quick start, you can find some Ndom cardinal numbers [here](http://www.sf.airnet.ne.jp/ts/language/number/ndom.html) to test the program.
-
-### TODOs
-
-- Generate Ndom words from numbers
+For quick start, you can find a list of Ndom cardinal numbers [here](http://www.sf.airnet.ne.jp/ts/language/number/ndom.html).
 
 ### References
 
