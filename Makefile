@@ -13,11 +13,11 @@ parser.c parser.h: parser.y
 
 # Object files
 
-ndom.o: ndom.c scanner.h parser.h
+ndom.o: ndom.c ndom.h scanner.h parser.h
 
 scanner.o: scanner.c parser.h
 
-parser.o: parser.c scanner.h
+parser.o: parser.c scanner.h ndom.h
 
 .c.o:
 	$(CC) -c $(CFLAGS) $< -o $@
