@@ -43,10 +43,10 @@ input:
   ;
 
 number:
-    place_zero { $$ = $1; }
-  | place_one { $$ = $1; }
+    place_zero
+  | place_one
   | place_one ABO place_zero { $$ = $1 + $3; }
-  | place_two { $$ = $1; }
+  | place_two
   | place_two ABO place_zero { $$ = $1 + $3; }
   | place_two ABO place_one { $$ = $1 + $3; }
   | place_two ABO place_one ABO place_zero { $$ = $1 + $3 + $5; }
@@ -61,9 +61,18 @@ place_zero:
   ;
 
 place_one:
+    place_one_lower
+  | place_one_upper
+  | place_one_upper ABO place_one_lower { $$ = $1 + $3; }
+  ;
+
+place_one_upper:
     TONDOR { $$ = 6*3; }
-  | TONDOR ABO MER { $$ = 6*3 + 6; }
-  | TONDOR ABO MER AN THEF { $$ = 6*3 + 6*2; }
+  ;
+
+place_one_lower:
+    MER { $$ = 6; }
+  | MER AN THEF { $$ = 6*2; }
   ;
 
 place_two:
