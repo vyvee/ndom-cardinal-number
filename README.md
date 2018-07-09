@@ -6,6 +6,8 @@ The code makes use of:
 - Reentrant scanner by using Flex
 - Reentrant GLR parser by using Bison
 
+For quick start, you can find some Ndom cardinal numbers [here](http://www.sf.airnet.ne.jp/ts/language/number/ndom.html) to test the program.
+
 ### TODOs
 
 - Generate Ndom words from numbers
