@@ -18,6 +18,6 @@ tondor          { return TONDOR; }
 nif             { return NIF; }
 abo             { return ABO; }
 an              { return AN; }
-[ \t\n\v\f\r]+  {}   
+[ \t\n\v\f\r]+  ;
 .               { return yytext[0]; }
 %%

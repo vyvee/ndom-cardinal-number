@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -W -pedantic -O3
 
-all: ndom
+all: main
 
 # Scanner and Parser
 
@@ -13,19 +13,21 @@ parser.c parser.h: parser.y
 
 # Object files
 
-ndom.o: ndom.c ndom.h scanner.h parser.h
+ndom.o: ndom.c ndom.h
 
 scanner.o: scanner.c parser.h
 
 parser.o: parser.c scanner.h ndom.h
+
+main.o: main.c ndom.h
 
 .c.o:
 	$(CC) -c $(CFLAGS) $< -o $@
 
 # Link executable
 
-ndom: ndom.o scanner.o parser.o
+main: main.o ndom.o scanner.o parser.o
 	gcc -o $@ $?
 
 clean:
-	-rm -f *~ scanner.h scanner.c parser.h parser.c *.o ndom
+	-rm -f *~ scanner.h scanner.c parser.h parser.c *.o main

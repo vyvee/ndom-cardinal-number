@@ -92,7 +92,7 @@ void yyerror(yyscan_t scanner, int *p_value, ...)
   (void) p_value;
 }
 
-int ndom_parse(const char *str)
+int ndom_to_int(const char *str)
 {
   yyscan_t scanner_info;
   if (yylex_init(&scanner_info)) {
