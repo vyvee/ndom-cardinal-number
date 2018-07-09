@@ -1,4 +1,4 @@
-# ndom-cardinal-number - Ndom Cardinal Numbers
+# Ndom Cardinal Numbers
 
 A parser for Ndom cardinal numbers.
 
