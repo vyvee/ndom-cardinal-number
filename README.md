@@ -7,7 +7,7 @@ The Ndom language is spoken by about 1,200 people on Yos Sudarso Island in Papua
 The code uses Flex and Bison to parse Ndom cardinal numbers. It is actually not difficult to implement handwritten lexer and parser here, but I have purposely used Flex and Bison here to try out and demonstrate the following features:
 - Reentrant scanner with Flex
 - Reentrant parser with Bison
-- Generalized Left to Right (GLR) parser with Bison
+- Generalized LR (GLR) parser with Bison
 
 For quick start, you can find a list of Ndom cardinal numbers [here](http://www.sf.airnet.ne.jp/ts/language/number/ndom.html).
 
