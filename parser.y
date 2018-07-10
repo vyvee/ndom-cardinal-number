@@ -15,9 +15,9 @@
  */
 %glr-parser
 /* The expected shift-reduce conflict happens here:
- *   TONDOR . ABO
- * The parser does not know if it should reduce to 'place_one' or shift to
- * expect ABO MER etc.
+ *   place_one_upper . ABO
+ * The parser does not know if it should reduce to 'place_one' which may
+ * later shift to expect ABO, or shift to expect ABO here.
  */
 %expect 1
 
@@ -66,13 +66,13 @@ place_one:
   | place_one_upper ABO place_one_lower { $$ = $1 + $3; }
   ;
 
-place_one_upper:
-    TONDOR { $$ = 6*3; }
-  ;
-
 place_one_lower:
     MER { $$ = 6; }
   | MER AN THEF { $$ = 6*2; }
+  ;
+
+place_one_upper:
+    TONDOR { $$ = 6*3; }
   ;
 
 place_two:
