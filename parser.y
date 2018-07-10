@@ -81,8 +81,6 @@ place_two:
   | NIF ITHIN { $$ = 6*6*3; }
   ;
 %%
-#include <ctype.h>
-
 #include "scanner.h"
 #include "ndom.h"
 
