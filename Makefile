@@ -32,7 +32,7 @@ main.o: main.c ndom.h
 # Link executable
 
 main: main.o ndom.o scanner.o parser.o
-	gcc -o $@ $?
+	$(CC) -o $@ $?
 
 clean:
 	-rm -f *~ scanner.h scanner.c parser.h parser.c parser.dot parser.png parser.output *.o main
