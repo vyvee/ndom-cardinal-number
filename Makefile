@@ -1,7 +1,9 @@
 CC=gcc
 CFLAGS=-Wall -W -pedantic -O3
 
-all: main parser.png parser.output
+all: main
+
+debug: parser.png parser.output
 
 # Scanner and Parser
 
