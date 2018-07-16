@@ -1,5 +1,9 @@
 CC=gcc
 CFLAGS=-Wall -W -pedantic -O3
+LDFLAGS=
+LIBS=
+
+.PHONY: all debug clean
 
 all: main
 
@@ -32,7 +36,7 @@ main.o: main.c ndom.h
 # Link executable
 
 main: main.o ndom.o scanner.o parser.o
-	$(CC) -o $@ $?
+	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	-rm -f *~ scanner.h scanner.c parser.h parser.c parser.dot parser.png parser.output *.o main
